@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'presentation/screens/home_page.dart';
+
 void main() {
   runApp(const MainApp());
 }
@@ -9,15 +11,8 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
-        appBar: AppBar(
-          title: const Text('Tast List'),
-        ),
-        body: const Center(
-          child: Text('Hello World!'),
-        ),
-      ),
+    return const MaterialApp(
+      home: HomePage(),
     );
   }
 }
