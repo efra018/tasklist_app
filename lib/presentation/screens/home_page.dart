@@ -16,7 +16,7 @@ class HomePage extends StatelessWidget {
           shadowColor: Colors.black,
           elevation: 2,
           scrolledUnderElevation: 0,
-          toolbarHeight: 80,
+          // toolbarHeight: 80,
           backgroundColor: AppColors.appBarColor,
           centerTitle: true,
           title: const Text(
