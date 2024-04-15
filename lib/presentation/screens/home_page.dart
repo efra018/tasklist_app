@@ -4,8 +4,57 @@ import 'package:tasklist_app/presentation/widgets/task_listview_widget.dart';
 
 void main() => runApp(const HomePage());
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   const HomePage({super.key});
+
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  void _showDialog() {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return Builder(
+          builder: (context) {
+            // Widget AlertDialog
+            return AlertDialog(
+              title: const Text('Nueva tarea'),
+              content: const SizedBox(
+                child: TextField(
+                  decoration: InputDecoration(
+                    border: OutlineInputBorder(),
+                    hintText: 'Escribe Aquí',
+                  ),
+                ),
+              ),
+              actions: <Widget>[
+                TextButton(
+                  child: Text(
+                    'Cancelar',
+                    style: TextStyle(color: Colors.orange[900]),
+                  ),
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                ),
+                TextButton(
+                  child: Text(
+                    'Agregar',
+                    style: TextStyle(color: Colors.orange[900]),
+                  ),
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                )
+              ],
+            );
+          },
+        );
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -51,7 +100,7 @@ class HomePage extends StatelessWidget {
           children: [
             FloatingActionButton(
               backgroundColor: AppColors.floatingActionButton,
-              onPressed: () {},
+              onPressed: _showDialog,
               child: const Icon(Icons.add),
             ),
             const SizedBox(
