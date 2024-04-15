@@ -11,8 +11,22 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      home: HomePage(),
+    return MaterialApp(
+      theme: ThemeData(
+        textButtonTheme: TextButtonThemeData(
+          style: ButtonStyle(
+            overlayColor: MaterialStateProperty.all(
+              Colors.deepOrange.withOpacity(0.3),
+            ),
+          ),
+        ),
+        textSelectionTheme: TextSelectionThemeData(
+          cursorColor: Colors.orange.shade900,
+          selectionColor: Colors.orange.shade400,
+          selectionHandleColor: Colors.orange.shade800,
+        ),
+      ),
+      home: const HomePage(),
     );
   }
 }
