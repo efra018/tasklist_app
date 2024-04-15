@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tasklist_app/presentation/constants/custom_colors.dart';
+import 'package:tasklist_app/presentation/widgets/task_listview_widget.dart';
 
 void main() => runApp(const HomePage());
 
@@ -14,8 +15,8 @@ class HomePage extends StatelessWidget {
         backgroundColor: AppColors.backgroundColor,
         appBar: AppBar(
           shadowColor: Colors.black,
-          elevation: 2,
-          scrolledUnderElevation: 0,
+          elevation: 3,
+          // scrolledUnderElevation: 0,
           // toolbarHeight: 80,
           backgroundColor: AppColors.appBarColor,
           centerTitle: true,
@@ -41,7 +42,8 @@ class HomePage extends StatelessWidget {
             ),
             SizedBox(
               height: 30,
-            )
+            ),
+            TaskListView(),
           ],
         ),
         floatingActionButton: Column(
