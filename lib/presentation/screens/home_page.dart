@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tasklist_app/presentation/constants/custom_colors.dart';
+import 'package:tasklist_app/presentation/widgets/addtask_alertdialog_widget.dart';
 import 'package:tasklist_app/presentation/widgets/task_listview_widget.dart';
 
 void main() => runApp(const HomePage());
@@ -12,6 +13,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  // Funcion _showDialog
   void _showDialog() {
     showDialog(
       context: context,
@@ -19,37 +21,7 @@ class _HomePageState extends State<HomePage> {
         return Builder(
           builder: (context) {
             // Widget AlertDialog
-            return AlertDialog(
-              title: const Text('Nueva tarea'),
-              content: const SizedBox(
-                child: TextField(
-                  decoration: InputDecoration(
-                    border: OutlineInputBorder(),
-                    hintText: 'Escribe Aquí',
-                  ),
-                ),
-              ),
-              actions: <Widget>[
-                TextButton(
-                  child: Text(
-                    'Cancelar',
-                    style: TextStyle(color: Colors.orange[900]),
-                  ),
-                  onPressed: () {
-                    Navigator.of(context).pop();
-                  },
-                ),
-                TextButton(
-                  child: Text(
-                    'Agregar',
-                    style: TextStyle(color: Colors.orange[900]),
-                  ),
-                  onPressed: () {
-                    Navigator.of(context).pop();
-                  },
-                )
-              ],
-            );
+            return const AddTaskAlertDialog();
           },
         );
       },
@@ -65,8 +37,6 @@ class _HomePageState extends State<HomePage> {
         appBar: AppBar(
           shadowColor: Colors.black,
           elevation: 3,
-          // scrolledUnderElevation: 0,
-          // toolbarHeight: 80,
           backgroundColor: AppColors.appBarColor,
           centerTitle: true,
           title: const Text(
