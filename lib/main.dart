@@ -16,7 +16,7 @@ class MainApp extends StatelessWidget {
         textButtonTheme: TextButtonThemeData(
           style: ButtonStyle(
             overlayColor: MaterialStateProperty.all(
-              Colors.deepOrange.withOpacity(0.3),
+              Colors.deepOrange.withOpacity(0.2),
             ),
           ),
         ),
