@@ -1,16 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:tasklist_app/presentation/constants/custom_colors.dart';
 
-void main() => runApp(const AddTaskAlertDialog());
-
 class AddTaskAlertDialog extends StatefulWidget {
-  const AddTaskAlertDialog({super.key});
+  const AddTaskAlertDialog({super.key, required this.onTaskAdded});
+
+  final Function(String) onTaskAdded;
 
   @override
   State<AddTaskAlertDialog> createState() => _AddTaskAlertDialogState();
 }
 
 class _AddTaskAlertDialogState extends State<AddTaskAlertDialog> {
+  final TextEditingController _taskInputController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
@@ -34,9 +36,9 @@ class _AddTaskAlertDialogState extends State<AddTaskAlertDialog> {
             ),
           ),
         ),
-        child: const TextField(
-          // cursorColor: Colors.orange.shade900,
-          decoration: InputDecoration(
+        child: TextField(
+          controller: _taskInputController,
+          decoration: const InputDecoration(
             border: OutlineInputBorder(),
             hintText: 'Escribe Aquí',
           ),
@@ -58,6 +60,7 @@ class _AddTaskAlertDialogState extends State<AddTaskAlertDialog> {
             style: TextStyle(color: Colors.orange[900], fontSize: 18),
           ),
           onPressed: () {
+            widget.onTaskAdded(_taskInputController.text);
             Navigator.of(context).pop();
           },
         )

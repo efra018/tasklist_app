@@ -1,11 +1,12 @@
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
+import 'package:tasklist_app/data/models/task_model.dart';
 
 class DatabaseHelper {
   // Variable estatica que almacenará una referencia a la base de datos una vez que se abra.
   static Database? _database;
   // El nombre de la tabla en la base de datos.
-  static const String _tablename = 'task';
+  static const String _tableName = 'task';
 
   /// Este método es un getter asíncrono que devuelve una instancia de la base de datos.
   /// Si _database ya tiene una referencia a la base de datos abierta, la devuelve.
@@ -33,7 +34,7 @@ class DatabaseHelper {
       onCreate: (db, version) {
         return db.execute(
           '''
-        CREATE TABLE $_tablename(
+        CREATE TABLE $_tableName(
           id INTEGER PRIMARY KEY AUTOINCREMENT,
           userName TEXT,
           task TEXT,
@@ -51,12 +52,24 @@ class DatabaseHelper {
   // Toma un mapa de datos de la tarea y lo inserta en la tabla de tareas de la bd
   Future<int> insertTask(Map<String, dynamic> task) async {
     final db = await database;
-    return db.insert(_tablename, task);
+    return db.insert(_tableName, task);
   }
 
   // Obtiene todas las tareas almacenadas en la bd y las devuelve como una lista de mapas de datos.
-  Future<List<Map<String, dynamic>>> getAllTask() async {
+  Future<List<Task>> getTasks() async {
     final db = await database;
-    return db.query(_tablename);
+    final List<Map<String, dynamic>> taskMaps = await db.query(_tableName);
+    return List.generate(taskMaps.length, (index) {
+      return Task(
+        id: taskMaps[index]['id'],
+        task: taskMaps[index]['name'],
+        isCompleted: taskMaps[index]['isCompleted'] == 1,
+      );
+    });
+  }
+
+  Future<int> delete(int id) async {
+    final db = await database;
+    return db.delete(_tableName, where: 'id = ?', whereArgs: [id]);
   }
 }

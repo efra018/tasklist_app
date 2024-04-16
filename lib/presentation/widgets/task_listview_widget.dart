@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:tasklist_app/data/models/task_model.dart';
 import 'package:tasklist_app/presentation/constants/custom_colors.dart';
 
 class TaskListView extends StatefulWidget {
-  const TaskListView({super.key});
+  const TaskListView({super.key, required this.tasks});
+
+  final List<Task> tasks;
 
   @override
   State<TaskListView> createState() => _TaskListViewState();
@@ -14,8 +17,9 @@ class _TaskListViewState extends State<TaskListView> {
     return Expanded(
       child: ListView.builder(
         padding: const EdgeInsets.symmetric(horizontal: 25),
-        itemCount: 1,
+        itemCount: widget.tasks.length,
         itemBuilder: (context, index) {
+          Task currentTask = widget.tasks[index];
           // Container de tarea
           return Container(
             height: 100,
@@ -35,26 +39,30 @@ class _TaskListViewState extends State<TaskListView> {
             alignment: Alignment.center,
             child: ListTile(
               leading: Checkbox(
-                value: false,
+                value: currentTask.isCompleted,
                 onChanged: (value) {
                   setState(() {
-                    value = value!;
+                    currentTask.isCompleted = value!;
                   });
                 },
               ),
               contentPadding: const EdgeInsets.only(left: 13),
 
               // Texto de la tarea
-              title: const Text(
-                'Hola mundo Flutter ',
-                style: TextStyle(
+              title: Text(
+                currentTask.task,
+                style: const TextStyle(
                   fontSize: 18,
                   color: AppColors.textColor,
                 ),
               ),
               trailing: IconButton(
                 icon: const Icon(Icons.delete),
-                onPressed: () {},
+                onPressed: () {
+                  setState(() {
+                    widget.tasks.removeAt(index);
+                  });
+                },
               ),
             ),
           );

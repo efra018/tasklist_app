@@ -1,13 +1,22 @@
 class Task {
   final int id;
-  final String userName;
+  final String? userName;
   final String task;
-  final bool isCompleted;
+  bool isCompleted;
 
   Task({
     required this.id,
-    required this.userName,
+    this.userName,
     required this.task,
     this.isCompleted = false,
   });
+
+  // static fromMap(Map<String, dynamic> taskMap) {}
+  // Map<String, dynamic> mapTask() {
+  //   return {
+  //     'id': id,
+  //     'task': task,
+  //     'isCompleted': isCompleted,
+  //   };
+  // }
 }

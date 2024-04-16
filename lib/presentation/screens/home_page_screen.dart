@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tasklist_app/data/models/task_model.dart';
 import 'package:tasklist_app/presentation/constants/custom_colors.dart';
 import 'package:tasklist_app/presentation/widgets/addtask_alertdialog_widget.dart';
 import 'package:tasklist_app/presentation/widgets/task_listview_widget.dart';
@@ -13,6 +14,16 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  List<Task> tasks = [];
+
+  void addTask(String taskName) {
+    setState(() {
+      int newId = tasks.length + 1;
+      Task newTask = Task(id: newId, task: taskName);
+      tasks.add(newTask);
+    });
+  }
+
   // Funcion _showDialog
   void _showDialog() {
     showDialog(
@@ -21,7 +32,9 @@ class _HomePageState extends State<HomePage> {
         return Builder(
           builder: (context) {
             // Widget AlertDialog
-            return const AddTaskAlertDialog();
+            return AddTaskAlertDialog(
+              onTaskAdded: addTask,
+            );
           },
         );
       },
@@ -44,12 +57,12 @@ class _HomePageState extends State<HomePage> {
             style: TextStyle(fontSize: 30),
           ),
         ),
-        body: const Column(
+        body: Column(
           children: [
-            SizedBox(
+            const SizedBox(
               height: 17,
             ),
-            Align(
+            const Align(
               alignment: Alignment.centerLeft,
               child: Padding(
                 padding: EdgeInsets.symmetric(horizontal: 30),
@@ -59,10 +72,10 @@ class _HomePageState extends State<HomePage> {
                 ),
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 30,
             ),
-            TaskListView(),
+            TaskListView(tasks: tasks),
           ],
         ),
         floatingActionButton: Column(
