@@ -11,12 +11,21 @@ class Task {
     this.isCompleted = false,
   });
 
-  // static fromMap(Map<String, dynamic> taskMap) {}
-  // Map<String, dynamic> mapTask() {
-  //   return {
-  //     'id': id,
-  //     'task': task,
-  //     'isCompleted': isCompleted,
-  //   };
-  // }
+  factory Task.fromMap(Map<String, dynamic> json) {
+    return Task(
+      id: json['id'],
+      task: json['task'],
+      userName: json['userName'],
+      isCompleted: json['isCompleted'] == 1,
+    );
+  }
+
+  Map<String, dynamic> toMap() {
+    return {
+      'id': id,
+      'task': task,
+      'userName': userName,
+      'isCompleted': isCompleted ? 1 : 0,
+    };
+  }
 }
