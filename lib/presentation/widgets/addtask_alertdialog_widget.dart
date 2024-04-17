@@ -4,6 +4,8 @@ import 'package:tasklist_app/presentation/constants/custom_colors.dart';
 class AddTaskAlertDialog extends StatefulWidget {
   const AddTaskAlertDialog({super.key, required this.onTaskAdded});
 
+  // Variable onTaskAdded de tipo Function(String)
+  // debe ser una funcion que toma como argumento un tipo String
   final Function(String) onTaskAdded;
 
   @override
@@ -11,6 +13,7 @@ class AddTaskAlertDialog extends StatefulWidget {
 }
 
 class _AddTaskAlertDialogState extends State<AddTaskAlertDialog> {
+  // captando valor de TextField con TextEditingController.
   final TextEditingController _taskInputController = TextEditingController();
 
   @override
@@ -60,6 +63,7 @@ class _AddTaskAlertDialogState extends State<AddTaskAlertDialog> {
             style: TextStyle(color: Colors.orange[900], fontSize: 18),
           ),
           onPressed: () {
+            // Obteniendo el valor ingresado del texto pasando como parametro a onTaskAdded
             widget.onTaskAdded(_taskInputController.text);
             Navigator.of(context).pop();
           },

@@ -5,6 +5,7 @@ import 'package:tasklist_app/presentation/constants/custom_colors.dart';
 class TaskListView extends StatefulWidget {
   const TaskListView({super.key, required this.tasks});
 
+  // Lista de objetos de tipo Task -> Model
   final List<Task> tasks;
 
   @override
@@ -19,6 +20,7 @@ class _TaskListViewState extends State<TaskListView> {
         padding: const EdgeInsets.symmetric(horizontal: 25),
         itemCount: widget.tasks.length,
         itemBuilder: (context, index) {
+          // Obteniendo el index de la lista task
           Task currentTask = widget.tasks[index];
           // Container de tarea
           return Container(
@@ -50,6 +52,7 @@ class _TaskListViewState extends State<TaskListView> {
 
               // Texto de la tarea
               title: Text(
+                // mostrando la 'tarea' de la lista task
                 currentTask.task,
                 style: const TextStyle(
                   fontSize: 18,

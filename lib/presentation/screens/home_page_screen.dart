@@ -14,12 +14,20 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  // Declarando lista vacia de tipo Task -> Model
   List<Task> tasks = [];
 
+  // Funcion para agregar nueva tarea a la lista recibiendo como argumento el nombre la tarea
   void addTask(String taskName) {
     setState(() {
+      // toma la longitud actual de la lista de tareas y le suma 1 para botener un ID unico para la nueva tarea.
       int newId = tasks.length + 1;
+
+      /// Se crea un nuevo objeto de tipo Task utilizando el constructor de la clase Task.
+      /// Se le asigna el nuevo ID y el nombre de la tarea proporcionado como argumento.
       Task newTask = Task(id: newId, task: taskName);
+
+      /// La nueva tarea de agrega a la lista de tareas.
       tasks.add(newTask);
     });
   }
