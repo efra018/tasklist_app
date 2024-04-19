@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:tasklist_app/data/local/database_helper.dart';
+import 'package:tasklist_app/data/models/task_model.dart';
 import 'package:tasklist_app/presentation/constants/custom_colors.dart';
 
 class AddTaskAlertDialog extends StatefulWidget {
@@ -15,6 +17,15 @@ class AddTaskAlertDialog extends StatefulWidget {
 class _AddTaskAlertDialogState extends State<AddTaskAlertDialog> {
   // captando valor de TextField con TextEditingController.
   final TextEditingController _taskInputController = TextEditingController();
+  var dbHelper = DatabaseHelper();
+
+  void _handleTaskAdded(String taskName) async {
+    Task newTask = Task(task: taskName);
+    await DatabaseHelper.insertTask(newTask);
+    print('Task added: $taskName');
+    widget.onTaskAdded(taskName);
+    // _loadTask(); // Cargar las tareas nuevamente después de agregar una nueva tarea
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -64,7 +75,9 @@ class _AddTaskAlertDialogState extends State<AddTaskAlertDialog> {
           ),
           onPressed: () {
             // Obteniendo el valor ingresado del texto pasando como parametro a onTaskAdded
-            widget.onTaskAdded(_taskInputController.text);
+            // widget.onTaskAdded(_taskInputController.text);
+            _handleTaskAdded(_taskInputController.text);
+            // _handleTaskAdded(taskName);
             Navigator.of(context).pop();
           },
         )
