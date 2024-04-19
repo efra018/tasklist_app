@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:tasklist_app/data/local/database_helper.dart';
 import 'package:tasklist_app/data/models/task_model.dart';
 import 'package:tasklist_app/presentation/constants/custom_colors.dart';
 import 'package:tasklist_app/presentation/widgets/addtask_alertdialog_widget.dart';
 import 'package:tasklist_app/presentation/widgets/task_listview_widget.dart';
-
-void main() => runApp(const HomePage());
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -17,19 +16,23 @@ class _HomePageState extends State<HomePage> {
   // Declarando lista vacia de tipo Task -> Model
   List<Task> tasks = [];
 
-  // Funcion para agregar nueva tarea a la lista recibiendo como argumento el nombre la tarea
-  void addTask(String taskName) {
+  @override
+  void initState() {
+    super.initState();
+    _loadTask();
+  }
+
+  void _loadTask() async {
+    List<Task> loadedTasks = await DatabaseHelper.getAllTasks();
+
     setState(() {
-      // toma la longitud actual de la lista de tareas y le suma 1 para botener un ID unico para la nueva tarea.
-      int newId = tasks.length + 1;
-
-      /// Se crea un nuevo objeto de tipo Task utilizando el constructor de la clase Task.
-      /// Se le asigna el nuevo ID y el nombre de la tarea proporcionado como argumento.
-      Task newTask = Task(id: newId, task: taskName);
-
-      /// La nueva tarea de agrega a la lista de tareas.
-      tasks.add(newTask);
+      tasks = loadedTasks;
     });
+  }
+
+  // Funcion para agregar nueva tarea a la lista recibiendo como argumento el nombre la tarea
+  void addTask(String taskName) async {
+    _loadTask();
   }
 
   // Funcion _showDialog
@@ -83,7 +86,9 @@ class _HomePageState extends State<HomePage> {
             const SizedBox(
               height: 30,
             ),
-            TaskListView(tasks: tasks),
+            TaskListView(
+              tasks: tasks,
+            ),
           ],
         ),
         floatingActionButton: Column(
